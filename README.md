@@ -1,4 +1,4 @@
-Showbutler WordPress Plugin
+<h4>Showbutler WordPress Plugin</h4>
 
 ###Show Hide Button On included time.
 
@@ -32,9 +32,16 @@ hide_time="H:i:s" |*| Default: 00:00:00                  | -- hide on this time
 
 Example: 
 
+<<<<<<< HEAD
+=======
+***Show Button
+
+<code>
+>>>>>>> 8fc123122d74243f4f5f413085b7700223ccc69c
 [showbutler show_date="15 August 2020" show_time="01:34:00" hide_date="15 August 2020" hide_time="01:55:00"]
 <a href="" class="showbutler-btn" style="width:100px;background:#444;">Join Metting</a>
 [/showbutler]
+</code>
 
 
 
@@ -44,6 +51,7 @@ Example:
 
 ***For only Hide Button use type hide and hide date time
 
+<<<<<<< HEAD
 *** Shortcode Attributies ***
 
 type="hide" |-| Default: show
@@ -118,3 +126,11 @@ hide_time="H:i:s" |*| Default: 00:00:00                  | -- hide on this time
 [showbutler type="repeater" recurring_mode="everymonth" recurring_dates="23, 24" show_time="07:47:00" hide_time="19:51:00"]
 <a href="" class="showbutler-btn" style="width:100px;background:#444;">Join Metting</a>
 [/showbutler]
+=======
+
+<code>
+[showbutler type="hide" hide_date="15 August 2020" hide_time="01:55:00"]
+<a href="" class="showbutler-btn" style="width:100px;background:#444;">Join Metting</a>
+[/showbutler]
+</code>
+>>>>>>> 8fc123122d74243f4f5f413085b7700223ccc69c
