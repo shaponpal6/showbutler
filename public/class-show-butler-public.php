@@ -108,51 +108,6 @@ class Show_Butler_Public {
 	public function async_enqueue_scripts() {
 
 		//echo '<script src="'.plugin_dir_url( __FILE__ ) . 'js/show-butler-public.js'.'"/>';
-
-		?>
-<script>
-(function($) {
-    'use strict';
-
-    $(document).ready(function() {
-        console.log('hererrerrerere....');
-
-        let eventHandeler = (id, diff) => {
-            console.log('mmmmmmmmmmmmmm');
-            console.log(id, diff);
-            $('#' + id).fadeIn().delay(diff * 1000).queue(function(next) {
-                console.log('Hade out .............');
-                console.log(diff * 1000);
-                console.log(next);
-                console.log('#' + id);
-                console.log($('#' + id));
-                $('#' + id).hide();
-                $('#' + id).hide("slow", function() {
-                    alert("Animation complete.");
-                });
-            });
-        };
-
-        $('.showButlerEventHandeler').each(function() {
-            const id = $(this).attr('id');
-            const accessTime = $(this).data('accessTime');
-            const currentTime = $(this).data('currentTime');
-            const diff = accessTime - currentTime;
-            if (diff > 0) {
-                eventHandeler(id, diff);
-            };
-            console.log($(this));
-            console.log(accessTime);
-            console.log(currentTime, accessTime);
-            console.log(currentTime - accessTime);
-            console.log(currentTime - accessTime > 0);
-            console.log($(this).text());
-        });
-    });
-
-})(jQuery);
-</script>
-<?php
 	}
 
 
