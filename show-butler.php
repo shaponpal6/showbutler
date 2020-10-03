@@ -16,7 +16,7 @@
  * Plugin Name:       ShowButler
  * Plugin URI:        https://mrassistant.tech/
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
- * Version:           1.0.0
+ * Version:           2.0.0
  * Author:            Shapon pal
  * Author URI:        https://www.linkedin.com/in/shapon-pal/
  * License:           GPL-2.0+
@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'SHOW_BUTLER_VERSION', '1.0.0' );
+define( 'SHOW_BUTLER_VERSION', '2.0.0' );
 
 /**
  * The code that runs during plugin activation.
