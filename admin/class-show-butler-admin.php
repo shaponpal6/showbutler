@@ -164,20 +164,57 @@ class Show_Butler_Admin {
 			return $this->showbutler_repeater($atts, $content);
 		}
 
-		
-		 if($atts['show_date'] === "" ) return '';
+		return $this->contentManaget2($atts, $content);
+
+	}
+
+	/**
+	 * @param mixed $atts
+	 * @param mixed $content
+	 * 
+	 * @return [type]
+	 */
+	public function contentManaget2($atts, $content)
+	{
+		extract(shortcode_atts(array(
+			'type' => 'show',
+			'show_date' => '',
+			'show_time' => '00:00:00',
+			'hide_date' => '',
+			'hide_time' => '00:00:00',
+		 ), $atts));
+
+		//  if($atts['show_date'] === "" ) return '';
 		 $accessTime = $this->make_shortcodes_timestamp($atts['show_date'], $atts['show_time']);
+		 $hideTime = $this->make_shortcodes_timestamp($atts['hide_date'], $atts['hide_time']);
 		 $currentTime = current_time('timestamp');
-		 if(!$accessTime) return '';
+		 if( !$hideTime) return '';
+
+		 // If hide time is smaller then current time : Invalid date | No need to execute code
+		 if((int) $hideTime < (int) $currentTime) return '';
+		
+		 if((int) $hideTime > (int) $currentTime && ((int) $hideTime - (int) $currentTime) >= 0){
+			 $mode = (($accessTime <= $currentTime) && ($currentTime <= $hideTime)) ? "block" : "none";		
+			 
+			$html = '<div style="display:'.$mode.';" id="async'.uniqid().'" class="showButlerEventHandeler" data-access-time="'.$accessTime.'" data-current-time="'.$currentTime.'"  data-hide-time="'.$hideTime.'">';
+			$html .= $content;
+			$html .= '</div>';
+			return $html;
+		 }else{
+		 	print_r('In Valid time');
+		 }
+		 
 
 		// Disable button when Time is over minimum 1 seconds.
-		if($atts['type'] === "show" && ((int) $currentTime - (int) $accessTime) >= 0){
+		if(((int) $currentTime - (int) $accessTime) >= 0){
 			// Show on time
-			return $this->showbutler_hide($atts, $content);
+			// return $this->showbutler_hide($atts, $content);
+			// return $this->contentManaget2($atts, $content);
 		}
+		 
+		print_r($content, $accessTime, $currentTime, $showTim, $hide);
 
-		return "";
-
+		
 	}
 
 
@@ -242,18 +279,22 @@ class Show_Butler_Admin {
 
 		 
 		 if($atts['hide_date'] === "" ) return $content;
-		 $accessTime = $this->make_shortcodes_timestamp($atts['hide_date'], $atts['hide_time']);
-		 $currentTime = current_time('timestamp');
+		 
+		 return $this->contentManaget2($atts, $content);
+		 
+		//  $accessTime = $this->make_shortcodes_timestamp($atts['hide_date'], $atts['hide_time']);
+		//  $showTime = $this->make_shortcodes_timestamp($atts['show_date'], $atts['show_time']);
+		//  $currentTime = current_time('timestamp');
 	
-		 if(!$accessTime) return $this->contentManaget($content, $accessTime, $currentTime);
+		//  if(!$accessTime) return $this->contentManaget($content, $accessTime, $currentTime);
 		
 
-		 // Disable button when Time is over minimum 1 seconds.
-		if( ((int) $accessTime -(int) $currentTime) >= 0){
-			return $this->contentManaget($content, $accessTime, $currentTime);
-		} 
+		//  // Disable button when Time is over minimum 1 seconds.
+		// if( ((int) $accessTime -(int) $currentTime) >= 0){
+		// 	return $this->contentManaget($content, $accessTime, $currentTime);
+		// } 
 
-		return "";
+		// return $this->contentManaget($content, $accessTime, $currentTime, $showTime, true);
 
 	}
 
@@ -290,6 +331,7 @@ class Show_Butler_Admin {
 		
 		 if($atts['hide_date'] === "" ) return $content;
 		 $accessTime = $this->make_shortcodes_timestamp($atts['hide_date'], $atts['hide_time']);
+		 $showTime = $this->make_shortcodes_timestamp($atts['show_date'], $atts['show_time']);
 		 $currentTime = current_time('timestamp');
 		 //  print_r($atts);
 		 
@@ -301,7 +343,7 @@ class Show_Butler_Admin {
 			return $this->contentManaget($content, $accessTime, $currentTime);
 		} 
 
-		return "";
+		return $this->contentManaget($content, $accessTime, $currentTime, $showTime, true);;
 
 	}
 
@@ -313,10 +355,11 @@ class Show_Butler_Admin {
 	 * 
 	 * @return [type]
 	 */
-	public function contentManaget($content, $accessTime, $currentTime)
+	public function contentManaget($content, $accessTime, $currentTime, $showTime='', $hide=false)
 	{
+		print_r($content, $accessTime, $currentTime, $showTim, $hide);
 
-		$html = '<div id="async'.uniqid().'" class="showButlerEventHandeler" data-access-time="'.$accessTime.'" data-current-time="'.$currentTime.'">';
+		$html = '<div style="display:'.$hide ? "none" : "".';" id="async'.uniqid().'" class="showButlerEventHandeler" data-access-time="'.$accessTime.'" data-current-time="'.$currentTime.'"  data-show-time="'.$showTime.'">';
 		$html .= $content;
 		$html .= '</div>';
 		return $html;
